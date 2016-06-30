@@ -2,13 +2,13 @@
 
 {% block content %}
     {% if object %}
-        <h2>Edit {{ object.title }}</h2>
+        <h2>Editar Solicitante {{ object.title }}</h2>
     {% else %}
-        <h2>Create</h2>
+        <h2>Novo Solicitante</h2>
     {% endif %}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" />
+        <input type="submit" value="Enviar" />
     </form>
 {% endblock %}

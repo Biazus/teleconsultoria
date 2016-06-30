@@ -8,11 +8,12 @@ from django.core.urlresolvers import reverse_lazy
 from core.models import Requester
 
 def home(request):
-    return render_to_response('core/index.html', {})
+    return render_to_response('/core/requesters', {})
 
 
 class RequesterList(ListView):
     model = Requester
+    fields = ['requester_name', 'requester_email', 'requester_phone']
 
 class RequesterCreate(CreateView):
     model = Requester

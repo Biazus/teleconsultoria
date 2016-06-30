@@ -1,3 +1,6 @@
 from django.contrib import admin
+from core.models import Requester
 
-# Register your models here.
+class RequesterAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(Requester, RequesterAdmin)

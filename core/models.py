@@ -7,6 +7,10 @@ class Requester(models.Model):
     requester_email = models.EmailField(max_length=255, blank=True, verbose_name='Email')
     requester_phone = models.CharField(max_length=18, blank=True, verbose_name='Telefone')
     #requester_favorito = models.BooleanField(verbose_name='CPF')
+    
+    def get_absolute_url(self):
+       return reverse('requester_update', args=[str(self.id)])
+    
     def __unicode__(self):
         return self.requester_name
     class Meta:
