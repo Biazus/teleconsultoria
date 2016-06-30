@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for requester in object_list %}
+        <p> 
+            {{ requester.requester_name }} 
+            <a href="{% url 'requester_update' requester.pk %}">Test...</a>
+        </p>
+    {% endfor %}
+
+    <a href="{% url 'requester_create' %}">Add...</a>
+{% endblock %}
