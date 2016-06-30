@@ -4,9 +4,9 @@
     {% for requester in object_list %}
         <p> 
             {{ requester.requester_name }} 
-            <a href="{% url 'requester_update' requester.pk %}">Test...</a>
+            <a href="{% url 'requester_update' requester.pk %}"> Editar</a>
         </p>
     {% endfor %}
 
-    <a href="{% url 'requester_create' %}">Add...</a>
+    <a href="{% url 'requester_create' %}">Novo</a>
 {% endblock %}
