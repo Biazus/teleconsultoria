@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for tag in object_list %}
+        <p> 
+            {{ tag.tag_name }} 
+            <a href="{% url 'tag_update' tag.pk %}"> Editar</a>
+        </p>
+    {% endfor %}
+
+    <a href="{% url 'tag_create' %}">Novo</a>
+{% endblock %}

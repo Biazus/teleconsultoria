@@ -36,9 +36,10 @@ tag_patterns = [
 
 #any pattern included on the file must be imported here
 urlpatterns = patterns('',
-  url(r'^$',TemplateView.as_view(template_name='homepage.html')), #home
+  url(r'^$', TemplateView.as_view(template_name='homepage.html'),name='homepage'),
   url(r'^requesters/',include(requester_patterns)),
   url(r'^consultants/',include(consultant_patterns)),
   url(r'^requests/',include(request_patterns)),
   url(r'^tags/',include(tag_patterns)),
+  
 )
