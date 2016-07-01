@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for consultant in object_list %}
+        <p> 
+            {{ consultant.consultant_name }} 
+            <a href="{% url 'consultant_update' consultant.pk %}"> Editar</a>
+        </p>
+    {% endfor %}
+
+    <a href="{% url 'consultant_create' %}">Novo</a>
+{% endblock %}

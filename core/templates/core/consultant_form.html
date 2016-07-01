@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if object %}
+        <h2>Editar Consultor {{ object.title }}</h2>
+    {% else %}
+        <h2>Novo Consultor</h2>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar" />
+    </form>
+{% endblock %}
