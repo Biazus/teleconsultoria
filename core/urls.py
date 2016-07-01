@@ -34,7 +34,6 @@ tag_patterns = [
   url(r'^delete_tag/(?P<pk>\d+)$', views.TagDelete.as_view(), name='tag_delete'),
 ]
 
-#any pattern included on the file must be imported here
 urlpatterns = patterns('',
   url(r'^$', TemplateView.as_view(template_name='homepage.html'),name='homepage'),
   url(r'^requesters/',include(requester_patterns)),
