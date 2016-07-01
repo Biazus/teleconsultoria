@@ -18,6 +18,10 @@ class Requester(models.Model):
     
     def __unicode__(self):
         return self.requester_name
+    
+    def __str__(self):
+        return self.requester_name
+    
     class Meta:
         db_table = u'requester'
         verbose_name = 'Solicitante'
@@ -43,8 +47,8 @@ class Consultant(models.Model):
 
 class Request(models.Model):
     request_id = models.AutoField(primary_key=True)
-    request_description = models.TextField(max_length=500, verbose_name="Descrição da Solicitação")
-    requester = models.ForeignKey('Requester',on_delete=models.CASCADE,)
+    request_description = models.TextField(max_length=500, verbose_name="Descrição da Solicitação", )
+    requester = models.ForeignKey('Requester',on_delete=models.CASCADE, verbose_name="Solicitante", )
     tags = models.ManyToManyField("Tag")
     
     def get_absolute_url(self):
@@ -62,12 +66,16 @@ class Request(models.Model):
 class Tag(models.Model):
     tag_id = models.AutoField(primary_key=True)
     tag_name = models.CharField(max_length=45, verbose_name='Nome da Tag')
+    requests = models.ManyToManyField("Request")
     
     def get_absolute_url(self):
        return reverse('tag_update', args=[str(self.id)])
        
     def __unicode__(self):
-        return self.tag_id
+        return self.tag_name
+        
+    def __str__(self):
+        return self.tag_name
         
     class Meta:
         db_table = u'tag'

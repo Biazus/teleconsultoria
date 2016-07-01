@@ -7,7 +7,6 @@ from core.models import Requester
 def home(request):
     return render_to_response('/core/requesters', {})
 
-
 class RequesterList(ListView):
     model = Requester
     fields = ['requester_name', 'requester_email', 'requester_phone']
