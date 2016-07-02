@@ -11,7 +11,7 @@
         </a>
         <br>
         <br>
-        <form method="post">
+        <form method="post" style="display: inline-block">
             {% csrf_token %}
             {{ form.as_p }}
             <input class="btn btn-primary" type="submit" value="Enviar" />

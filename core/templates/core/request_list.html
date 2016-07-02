@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for request in object_list %}
-        <p> 
-            {{ request.request_id }} 
-            {{ request.request_description }}
-            {% for tag in request.tags.all %}
-            <b>
-                {{ tag.tag_name }}
-            </b>
-            {% endfor %}
-            <a href="{% url 'request_update' request.pk %}"> Editar</a>
-        </p>
-    {% endfor %}
-
-    <a href="{% url 'request_create' %}">Novo</a>
+    <div class="list-group" style="display: inline-block; width: 400px;">
+        <a class="list-group-item active">Solicitações de Pacientes</a>
+        {% for request in object_list %}
+                <a class="list-group-item"  href="{% url 'request_update' request.pk %}">{{ request.request_id }} {{ request.request_description }}</a>
+                {% for tag in request.tags.all %}
+                    <b class="btn btn-xs" style="border:2px solid gray; color:gray"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                    {{ tag.tag_name }}
+                    </b>
+                {% endfor %}
+                <br>
+                <br>
+        {% endfor %}
+        <br>
+        <a class="btn btn-primary" href="{% url 'request_create' %}">Novo</a>
+    </div>
+    
 {% endblock %}

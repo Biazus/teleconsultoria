@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for tag in object_list %}
-        <p> 
-            {{ tag.tag_name }} 
-            <a href="{% url 'tag_update' tag.pk %}"> Editar</a>
-        </p>
-    {% endfor %}
-
-    <a href="{% url 'tag_create' %}">Novo</a>
+    <div class="list-group" style="display: inline-block">
+        <a class="list-group-item active">Tags para solicitações</a>
+        {% for tag in object_list %}
+                <a class="list-group-item"  href="{% url 'tag_update' tag.pk %}">{{ tag.tag_name }}</a>
+        {% endfor %}
+        <br>
+        <a class="btn btn-primary" href="{% url 'tag_create' %}">Nova</a>
+    </div>
+    
 {% endblock %}
