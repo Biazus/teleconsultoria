@@ -1,14 +1,21 @@
-{% extends "base.html" %}
 
+{% extends "base.html" %}
 {% block content %}
-    {% if object %}
-        <h2>Editar Solicitação {{ object.title }}</h2>
-    {% else %}
-        <h2>Nova Solicitação</h2>
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Enviar" />
-    </form>
+    <div class="list-group">
+        <a class="list-group-item active" style="display: inline-block">
+        {% if object %}
+                Editar Solicitação {{ object.title }}
+        {% else %}
+                Nova Solicitação {{ object.title }}
+        {% endif %}
+        </a>
+        <br>
+        <br>
+        <form method="post" style="display: inline-block">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-primary" type="submit" value="Enviar" />
+        </form>
+    </div>
+    
 {% endblock %}
