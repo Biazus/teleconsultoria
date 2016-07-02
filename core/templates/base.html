@@ -5,12 +5,14 @@
         <!-- Bootstrap -->
         <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"
       rel="stylesheet" media="screen">
-      <link href="{% static 'bootstrap/css/bootstrap.css' %}"
+        <link href="{% static 'bootstrap/css/bootstrap.css' %}"
       rel="stylesheet" media="screen">
-      <link href="{% static 'bootstrap/css/bootstrap-theme.css' %}"
+        <link href="{% static 'bootstrap/css/bootstrap-theme.css' %}"
       rel="stylesheet" media="screen">
+        <script type="text/javascript" src="{% static 'jquery/jquery-3.0.0.min.js' %}">
+        </script> 
 
-        <title>Rango - {% block title %}How to Tango with Django!{% endblock %}</title>
+        <title>{% block title %}Telessaúde{% endblock %}</title>
     </head>
     <body>
         <div class="container">
@@ -19,15 +21,16 @@
             <p>Núcleo de Telessaúde da Universidade Federal do Rio Grande do Sul</p>
           </div>
         </div>
-        <div style="text-align:right">
-        <a class="btn" href="/core/">Home</a>
+        <br>
+        <div class="list-group " style="margin-right:20px; width:400px; float:left">
+            <!--<a class="btn btn-default" href="/core/">Home</a>-->
+            <a href="/core/requesters/" class="list-group-item">Solicitantes</a>
+            <a href="/core/consultants/" class="list-group-item">Consultores</a></li>
+            <a href="/core/requests/" class="list-group-item">Solicitações</a></li>
+            <a href="/core/tags/" class="list-group-item">Tags</a></li>
         </div>
         {% block content %}
         {% endblock %}
-        <br>
-        <br>
-        <br>
-        <br>
-        <b>by miller</b>
+
     </body>
 </html>
