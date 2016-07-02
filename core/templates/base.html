@@ -1,6 +1,33 @@
+{% load staticfiles %}
 <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet" media="screen">
+      <link href="{% static 'bootstrap/css/bootstrap.css' %}"
+      rel="stylesheet" media="screen">
+      <link href="{% static 'bootstrap/css/bootstrap-theme.css' %}"
+      rel="stylesheet" media="screen">
+
+        <title>Rango - {% block title %}How to Tango with Django!{% endblock %}</title>
+    </head>
     <body>
+        <div class="container">
+          <div class="page-header">
+            <h1>Telessaúde RS</h1>
+            <p>Núcleo de Telessaúde da Universidade Federal do Rio Grande do Sul</p>
+          </div>
+        </div>
+        <div style="text-align:right">
+        <a class="btn" href="/core/">Home</a>
+        </div>
         {% block content %}
         {% endblock %}
+        <br>
+        <br>
+        <br>
+        <br>
+        <b>by miller</b>
     </body>
 </html>
