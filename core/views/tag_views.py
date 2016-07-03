@@ -4,13 +4,9 @@ from django.core.urlresolvers import reverse_lazy
 
 from core.models import Tag
 
-def home(tag):
-    return render_to_response('/core/tags', {})
-
 class TagList(ListView):
     model = Tag
-    fields = ['tag_name',]
-
+    
 class TagCreate(CreateView):
     model = Tag
     success_url = reverse_lazy('tag_list')

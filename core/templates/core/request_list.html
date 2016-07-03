@@ -1,6 +1,12 @@
 {% extends "base.html" %}
-
+<!--action="{% url 'tag_list_view' %}"--> 
 {% block content %}
+    <form id="searchform" method="get" accept-charset="utf-8"> 
+      <button class="searchbutton" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Filtrar tags....">
+    </form>
     <div class="list-group" style="display: inline-block; width: 400px;">
         <a class="list-group-item active">Solicitações de Pacientes</a>
         {% for request in object_list %}

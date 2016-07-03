@@ -4,13 +4,8 @@ from django.core.urlresolvers import reverse_lazy
 
 from core.models import Consultant
 
-def home(request):
-    return render_to_response('/core/consultants', {})
-
-
 class ConsultantList(ListView):
     model = Consultant
-    fields = ['consultant_name', 'consultant_CRM',]
 
 class ConsultantCreate(CreateView):
     model = Consultant
