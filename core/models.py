@@ -81,4 +81,4 @@ class Tag(models.Model):
         db_table = u'tag'
         verbose_name = u'Tag'
         verbose_name_plural = u'Tags'
-        ordering = ['tag_id']
+        ordering = ['tag_name']
