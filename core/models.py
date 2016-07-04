@@ -1,7 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 # Create your models here.
@@ -9,10 +10,10 @@ class Requester(models.Model):
     requester_id = models.AutoField(primary_key=True)
     requester_name = models.CharField(max_length=45, verbose_name='Nome')
     requester_email = models.EmailField(max_length=255, blank=True, verbose_name='Email')
-    #requester_phone = models.CharField(max_length=18, blank=True, verbose_name='Telefone')
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Número de telefone deve ter o formato: '+999999999' ou: '999999999' (min: 9 e max: 15 caracteres).")
     requester_phone = models.CharField(max_length=20, validators=[phone_regex], blank=True, verbose_name='Telefone')
     requester_CPF = models.IntegerField(max_length=11, verbose_name='CPF', unique=True)
+    requester_last_request_date = models.DateTimeField(default=datetime.today()- timedelta(days=1), blank=True)
     
     def get_absolute_url(self):
        return reverse('requester_update', args=[str(self.id)])
@@ -51,6 +52,16 @@ class Request(models.Model):
     request_description = models.TextField(max_length=500, verbose_name="Descrição", )
     requester = models.ForeignKey('Requester',on_delete=models.CASCADE, verbose_name="Solicitante", )
     tags = models.ManyToManyField("Tag", blank=True)
+    
+    def clean(self):
+        if (datetime.today().date() - self.requester.requester_last_request_date.date()).days == 0:
+            raise ValidationError(('Este solicitante já criou uma solicitação hoje.'))
+        else:
+            requester = Requester.objects.get(
+                requester_id=self.requester.requester_id,
+            )
+            requester.requester_last_request_date = datetime.today()
+            requester.save()
     
     def get_absolute_url(self):
        return reverse('request_update', args=[str(self.id)])
