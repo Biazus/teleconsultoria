@@ -12,6 +12,7 @@ class Requester(models.Model):
     #requester_phone = models.CharField(max_length=18, blank=True, verbose_name='Telefone')
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Número de telefone deve ter o formato: '+999999999' ou: '999999999' (min: 9 e max: 15 caracteres).")
     requester_phone = models.CharField(max_length=20, validators=[phone_regex], blank=True, verbose_name='Telefone')
+    requester_CPF = models.IntegerField(max_length=11, verbose_name='CPF', unique=True)
     
     def get_absolute_url(self):
        return reverse('requester_update', args=[str(self.id)])
@@ -64,8 +65,8 @@ class Request(models.Model):
         ordering = ['request_id']
 
 class Tag(models.Model):
-    tag_id = models.AutoField(primary_key=True)
-    tag_name = models.CharField(max_length=45, verbose_name='Nome da Tag')
+    tag_id = models.AutoField(primary_key=True, )
+    tag_name = models.CharField(max_length=45, unique=True, verbose_name='Nome da Tag')
     requests = models.ManyToManyField("Request")
     
     def get_absolute_url(self):

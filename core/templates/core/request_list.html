@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 <!--action="{% url 'tag_list_view' %}"--> 
 {% block content %}
-    <form id="searchform" method="get" accept-charset="utf-8"> 
-      <button class="searchbutton" type="submit">
-        <i class="fa fa-search"></i>
-      </button>
-      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Filtrar tags....">
-    </form>
     <div class="list-group" style="display: inline-block; width: 400px;">
         <a class="list-group-item active">Solicitações de Pacientes</a>
+        <form id="searchform" method="get" accept-charset="utf-8" style="text-align:right;"> 
+          <button class="searchbutton" type="submit" >
+            <i class="fa fa-search"></i>
+          </button>
+          <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Filtrar tags....">
+        </form>
         {% for request in object_list %}
-                <a class="list-group-item"  href="{% url 'request_update' request.pk %}">{{ request.request_id }} {{ request.request_description }}</a>
-                {% for tag in request.tags.all %}
-                    <b class="btn btn-xs" style="border:2px solid gray; color:gray"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-                    {{ tag.tag_name }}
-                    </b>
-                {% endfor %}
+                <a class="list-group-item"  href="{% url 'request_update' request.pk %}">{{ request.request_id }} - <b>{{ request.request_description }}</b></a>
+                <div style="text-align:right">    
+                    {% for tag in request.tags.all %}
+                        <b class="btn btn-xs" style="border:2px solid gray; color:gray"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                        {{ tag.tag_name }}
+                        </b>
+                    {% endfor %}
+                </div>
                 <br>
                 <br>
         {% endfor %}
