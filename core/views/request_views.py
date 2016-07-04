@@ -22,12 +22,11 @@ class RequestCreate(CreateView):
     success_url = reverse_lazy('request_list')
     fields = ['request_id','requester','request_description', 'tags']
 
-
 class RequestUpdate(UpdateView):
     model = Request
     success_url = reverse_lazy('request_list')
     fields = ['request_id','requester','request_description', 'tags']
-
+    
 class RequestDelete(DeleteView):
     model = Request
     success_url = reverse_lazy('request_list')
