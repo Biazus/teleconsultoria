@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <script>
+        $(document).ready(function(){
+            $('.messages').click(function(){
+                $('.messages').remove();
+                })
+            
+            });
+    </script>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <button style="margin-bottom:5px" {% if message.tags %} class="{{ message.tags }} alert alert-danger"{% endif %}>{{ message }}</button>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="list-group" style="display: inline-block; width: 400px">
         <a class="list-group-item active">Pacientes Solicitantes - Telessaúde</a>
         {% for requester in object_list %}

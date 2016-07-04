@@ -19,7 +19,7 @@
             </div>
         </form>
         {% if object %}
-            <a href="{% url 'requester_delete' requester.pk %}">Delete</a>
+            <a class="btn btn-danger" href="{% url 'requester_delete' requester.pk %}">Delete</a>
         {% endif %}
     </div>
     
