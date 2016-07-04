@@ -2,6 +2,7 @@ from django.views.generic import TemplateView,ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 from core.models import Requester, Request
 
@@ -30,6 +31,6 @@ class RequesterDelete(DeleteView):
             requester.delete()
             return HttpResponseRedirect(self.success_url)
         else:
-            #Informar que nao é possível deletar usuário com solicitações pendentes
+            messages.info(request, 'Não é possivel deletar solicitantes que possuam solicitações em aberto. Clique para fechar.')
             return HttpResponseRedirect(self.success_url)
             
