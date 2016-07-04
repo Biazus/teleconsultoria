@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.forms import ModelForm
+
 
 from core.models import Requester, Request
 
