@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 
 from core.models import Requester, Request
 
@@ -22,15 +23,11 @@ class RequesterUpdate(UpdateView):
 class RequesterDelete(DeleteView):
     model = Requester
     success_url = reverse_lazy('requester_list')
-    fields = ['requester_name', 'requester_email', 'requester_phone']
     
     def delete(self, request, *args, **kwargs):
-        has_requests = Request.objects.filter(requester_id=kwargs.get('pk'))
-        if not has_requests:
-            requester = Requester.objects.get(requester_id=kwargs.get('pk'))
-            requester.delete()
-            return HttpResponseRedirect(self.success_url)
-        else:
-            messages.info(request, 'Não é possivel deletar solicitantes que possuam solicitações em aberto. Clique para fechar.')
-            return HttpResponseRedirect(self.success_url)
-            
+        #get_object_or_404 is preventing long-running tabs server error
+        #instead of showing a server error, shows to the user that hes trying to access a non existing resource 
+        requester = get_object_or_404(Requester, requester_id=kwargs.get('pk'))
+        requester.delete()
+        messages.info(request, 'Deletado com sucesso.')
+        return HttpResponseRedirect(self.success_url)

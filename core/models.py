@@ -50,7 +50,7 @@ class Request(models.Model):
     request_id = models.AutoField(primary_key=True)
     request_description = models.TextField(max_length=500, verbose_name="Descrição", )
     requester = models.ForeignKey('Requester',on_delete=models.CASCADE, verbose_name="Solicitante", )
-    tags = models.ManyToManyField("Tag")
+    tags = models.ManyToManyField("Tag", blank=True)
     
     def get_absolute_url(self):
        return reverse('request_update', args=[str(self.id)])
