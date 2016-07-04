@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="list-group" style="display: inline-block">
+    <div class="list-group" style="display: inline-block; width: 400px">
         <a class="list-group-item active">Consultores do Telessaúde</a>
         {% for consultant in object_list %}
                 <a class="list-group-item"  href="{% url 'consultant_update' consultant.pk %}">{{ consultant.consultant_name }}</a>
