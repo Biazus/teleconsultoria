@@ -14,7 +14,7 @@ class Requester(models.Model):
     requester_phone = models.CharField(max_length=20, validators=[phone_regex], blank=True, verbose_name='Telefone')
     requester_CPF = models.IntegerField(max_length=11, verbose_name='CPF', unique=True)
     requester_last_request_date = models.DateTimeField(default=datetime.today()- timedelta(days=1), blank=True)
-    
+
     def get_absolute_url(self):
        return reverse('requester_update', args=[str(self.id)])
     
@@ -54,14 +54,22 @@ class Request(models.Model):
     tags = models.ManyToManyField("Tag", blank=True)
     
     def clean(self):
-        if (datetime.today().date() - self.requester.requester_last_request_date.date()).days == 0:
-            raise ValidationError(('Este solicitante já criou uma solicitação hoje.'))
-        else:
-            requester = Requester.objects.get(
-                requester_id=self.requester.requester_id,
-            )
-            requester.requester_last_request_date = datetime.today()
-            requester.save()
+        try:
+            has_requester = (self.requester is not None)
+            # "self.request_id is None" ensures that it will only happen during the object creation
+            if (datetime.today().date() - self.requester.requester_last_request_date.date()).days == 0 and self.request_id is None:
+                raise ValidationError(('Este solicitante já criou uma solicitação hoje.'))
+            else:
+                requester = Requester.objects.get(
+                    requester_id=self.requester.requester_id,
+                )
+                requester.requester_last_request_date = datetime.today()
+                requester.save()
+            
+        except Requester.DoesNotExist:
+            #it will be handled by the validators
+            pass
+        
     
     def get_absolute_url(self):
        return reverse('request_update', args=[str(self.id)])
