@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="list-group">
-        <a class="list-group-item active" style="display: inline-block; width: 400px">
+        <a class="list-group-item active" style="width: 400px; display: inline-block;">
         {% if object %}
                 Editar Solicitação {{ object.title }}
         {% else %}
@@ -16,6 +16,9 @@
             {{ form.as_p }}
             <input class="btn btn-primary" type="submit" value="Enviar" />
         </form>
+        {% if object %}
+            <a class="btn btn-danger" href="{% url 'request_delete' request.pk %}">Delete</a>
+        {% endif %}
     </div>
     
 {% endblock %}

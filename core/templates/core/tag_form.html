@@ -16,6 +16,9 @@
             {{ form.as_p }}
             <input class="btn btn-primary" type="submit" value="Enviar" />
         </form>
+        {% if object %}
+            <a class="btn btn-danger" href="{% url 'tag_delete' tag.pk %}">Delete</a>
+        {% endif %}
     </div>
     
 {% endblock %}

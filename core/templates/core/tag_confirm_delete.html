@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="list-group" style="display: inline-block; width: 400px">
+    <form method="post">
+        {% csrf_token %}
+        <p class="alert alert-danger" style="text-align: justify;">Tem certeza que deseja deletar? <br><br><strong> A Tag será apagada de todas as solicitações que a possuem.</strong> Esta ação não pode ser desfeita.</p>
+        <input type="submit" value="Sim" class="btn btn-danger" />
+        <a href="{% url 'tag_list' %}" class="btn btn-primary"> Não</a>
+    </form>
+</div>
+{% endblock %}
