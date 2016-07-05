@@ -1,0 +1,24 @@
+Principais dificuldades:
+- Nunca havia utilizado Django. Vi brevemente alguns códigos na semana da entrevista, porém nunca havia desenvolvido uma linha de código, então achei bem desafiante.
+- Fiz o template do site manualmente. Decidi não optar por procurar templates prontos para não me preocupar em ter muito código desnecessário sobrando nos templates.
+- Criei mensagens informativas ao adicionar um objeto a partir da django.contrib.messages do Django. Porém, não consegui exibir uma mensagem com o botão de fechá-la. Decidi então usar  jQuery para contornar isso e dar o efeito de fadeOut.
+
+O que acho que ainda poderia ser feito:
+
+- Criar outros arquivos templates no estilo do base.html, do qual poderiam ser herdadas características de arquivos html tipo listagem, por exemplo (herança multipla de templates)
+- Melhorar um pouco o html dos templates. Fiz tudo à mão, portanto acho que seria bacana procurar por templates prontos.
+
+O que mais:
+- Achei o framework bastante acessível;
+- Django tem uma divisão clara entre as camadas MCV;
+- Poderia ter utilizado o CDN dos arquivos CSS para não ocupar espaço no projeto.  Porém não queria que, caso a performance do CDN fosse baixa, 
+refletisse no site. Além disso, desse modo o site independe de internet para executar o bootstrap.
+
+
+
+
+Páginas úteis que utilizei:
+Rango - how to tang with django: http://www.tangowithdjango.com/book17/index.html
+Django docs: https://docs.djangoproject.com/en/1.9/
+Stackoverflow: http://stackoverflow.com/
+Classy Class-Based Views.: https://ccbv.co.uk/
