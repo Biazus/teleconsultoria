@@ -13,7 +13,7 @@ class Requester(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Número de telefone deve ter o formato: '+999999999' ou: '999999999' (min: 9 e max: 15 caracteres).")
     requester_phone = models.CharField(max_length=20, validators=[phone_regex], blank=True, verbose_name='Telefone')
     requester_CPF = models.IntegerField(max_length=11, verbose_name='CPF', unique=True)
-    requester_last_request_date = models.DateTimeField(default=datetime.today()- timedelta(days=1), blank=True)
+    requester_last_request_date = models.DateTimeField(default=timezone.now()- timedelta(days=1), blank=True)
 
     def get_absolute_url(self):
        return reverse('requester_update', args=[str(self.id)])
@@ -57,7 +57,8 @@ class Request(models.Model):
         try:
             has_requester = (self.requester is not None)
             # "self.request_id is None" ensures that it will only happen during the object creation
-            if (datetime.today().date() - self.requester.requester_last_request_date.date()).days == 0 and self.request_id is None:
+            if (timezone.now().date() - self.requester.requester_last_request_date.date()).days == 0 and self.request_id is None:
+                print(timezone.now().date(), "******", self.requester.requester_last_request_date.date())
                 raise ValidationError(('Este solicitante já criou uma solicitação hoje.'))
             else:
                 requester = Requester.objects.get(
@@ -86,7 +87,7 @@ class Request(models.Model):
 class Tag(models.Model):
     tag_id = models.AutoField(primary_key=True, )
     tag_name = models.CharField(max_length=45, unique=True, verbose_name='Nome da Tag')
-    requests = models.ManyToManyField("Request")
+    requests = models.ManyToManyField("Request", blank=True)
     
     def get_absolute_url(self):
        return reverse('tag_update', args=[str(self.id)])

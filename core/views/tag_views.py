@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from core.forms import TagForm
 
 from core.models import Tag
 
@@ -13,12 +14,13 @@ class TagList(ListView):
 class TagCreate(CreateView):
     model = Tag
     success_url = reverse_lazy('tag_list')
-    fields = ['tag_name',]
+    form_class = TagForm
+    
 
 class TagUpdate(UpdateView):
     model = Tag
     success_url = reverse_lazy('tag_list')
-    fields = ['tag_name',]
+    form_class = TagForm
 
 class TagDelete(DeleteView):
     model = Tag
