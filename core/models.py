@@ -3,7 +3,8 @@ from django.core.validators import RegexValidator
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 class Requester(models.Model):
@@ -58,20 +59,11 @@ class Request(models.Model):
             has_requester = (self.requester is not None)
             # "self.request_id is None" ensures that it will only happen during the object creation
             if (timezone.now().date() - self.requester.requester_last_request_date.date()).days == 0 and self.request_id is None:
-                print(timezone.now().date(), "******", self.requester.requester_last_request_date.date())
-                raise ValidationError(('Este solicitante já criou uma solicitação hoje.'))
-            else:
-                requester = Requester.objects.get(
-                    requester_id=self.requester.requester_id,
-                )
-                requester.requester_last_request_date = datetime.today()
-                requester.save()
-            
+                raise ValidationError(('Este solicitante já criou uma solicitação hoje.'))            
         except Requester.DoesNotExist:
             #it will be handled by the validators
             pass
-        
-    
+            
     def get_absolute_url(self):
        return reverse('request_update', args=[str(self.id)])
        
@@ -103,3 +95,30 @@ class Tag(models.Model):
         verbose_name = u'Tag'
         verbose_name_plural = u'Tags'
         ordering = ['tag_name']
+
+
+
+''' Signals: From Django official doc:
+    
+    Django includes a “signal dispatcher” which helps allow decoupled applications 
+    get notified when actions occur elsewhere in the framework. 
+    In a nutshell, signals allow certain senders to notify a set of receivers 
+    that some action has taken place. 
+    
+    You can put signal handling and registration code anywhere you like. 
+    However, you’ll need to make sure that the module it’s in gets imported early on
+    so that the signal handling gets registered before any signals need to be sent. 
+    This makes your app’s models.py a good place to put registration of signal handlers.
+'''
+
+"""
+    This function updates the last requester date of the requester to make sure that
+    he won't create any other solicitation until the end of the day
+"""
+@receiver(post_save, sender=Request)
+def update_last_request_day(sender, instance, **kwargs):
+    requester = Requester.objects.get(
+        requester_id=instance.requester.requester_id,
+    )
+    requester.requester_last_request_date = datetime.today()
+    requester.save()
