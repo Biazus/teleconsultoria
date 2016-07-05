@@ -4,8 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from django.forms import ModelForm
-
+from core.forms import RequesterForm
 
 from core.models import Requester, Request
 
@@ -15,12 +14,12 @@ class RequesterList(ListView):
 class RequesterCreate(CreateView):
     model = Requester
     success_url = reverse_lazy('requester_list')
-    fields = ['requester_name', 'requester_email', 'requester_phone', 'requester_CPF']
+    form_class = RequesterForm
 
 class RequesterUpdate(UpdateView):
     model = Requester
     success_url = reverse_lazy('requester_list')
-    fields = ['requester_name', 'requester_email', 'requester_phone', 'requester_CPF']
+    form_class = RequesterForm
 
 class RequesterDelete(DeleteView):
     model = Requester

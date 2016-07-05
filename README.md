@@ -1,4 +1,4 @@
-ANtes de tudo é necessário possuir o banco de dados postgreSQL e Python 3.4.2(ou superior) instalados em seu ambiente. 
+Antes de tudo é necessário possuir o banco de dados postgreSQL e Python 3.4.2(ou superior) instalados em seu ambiente. 
 A versão do postgreSQL utilizada neste projeto é a 8.4.22.
 Com o postgreSQL instalado, utilize o comando
 

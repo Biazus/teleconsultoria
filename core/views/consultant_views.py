@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from core.forms import ConsultantForm
 
 from core.models import Consultant
 
@@ -13,16 +14,16 @@ class ConsultantList(ListView):
 class ConsultantCreate(CreateView):
     model = Consultant
     success_url = reverse_lazy('consultant_list')
-    fields = ['consultant_name', 'consultant_CRM',]
+    form_class = ConsultantForm
 
 class ConsultantUpdate(UpdateView):
     model = Consultant
     success_url = reverse_lazy('consultant_list')
-    fields = ['consultant_name', 'consultant_CRM', 'consultant_graduation_date']
+    form_class = ConsultantForm
 
 class ConsultantDelete(DeleteView):
     model = Consultant
-    success_url = reverse_lazy('consultant_list', 'consultant_graduation_date')
+    success_url = reverse_lazy('consultant_list')
     
     def delete(self, request, *args, **kwargs):
         query = get_object_or_404(Consultant, consultant_id=kwargs.get('pk'))
