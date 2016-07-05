@@ -56,8 +56,10 @@ class Request(models.Model):
     
     def clean(self):
         try:
+            # self.request_id is None" ensures that it will only happen during the object creation. If the requester is not none
+            # we know that the user is trying to update the request instead of creating a new request.
             has_requester = (self.requester is not None)
-            # "self.request_id is None" ensures that it will only happen during the object creation
+            
             if (timezone.now().date() - self.requester.requester_last_request_date.date()).days == 0 and self.request_id is None:
                 raise ValidationError(('Este solicitante já criou uma solicitação hoje.'))            
         except Requester.DoesNotExist:

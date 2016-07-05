@@ -20,7 +20,15 @@ $ dropdb mydb
 e tente criá-lo novamente.
 Outra opção é utilizar um banco de dados de sua escolha e alterar o arquivo **settings&#46;py** do projeto para ser coerente com suas configurações preferidas de banco.
 
-Após o download do código fonte ($ git clone https://github.com/Biazus/teleconsultoria.git), é necessário resolver as dependências do projeto.
+Após o download do código fonte usando:
+```sh
+$ git clone https://github.com/Biazus/teleconsultoria.git
+```
+ou, por SSH:
+```sh
+$ git clone git@github.com:Biazus/teleconsultoria.git
+```
+, é necessário resolver as dependências do projeto.
 Como sugestão, utilize <b>virtualenv</b> para isolar seu ambiente de trabalho:
 ```sh
 $ virtualenv -p python3.4 ENV
