@@ -14,7 +14,7 @@ class Requester(models.Model):
     requester_id = models.AutoField(primary_key=True)
     requester_name = models.CharField(max_length=45, verbose_name='Nome')
     requester_email = models.EmailField(max_length=255, blank=True, verbose_name='Email')
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Número de telefone deve ter o formato: '+999999999' ou: '999999999' (min: 9 e max: 15 caracteres).")
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Formato: '+9999999' ou: '9999999', entre 9 e 15 caracteres")
     requester_phone = models.CharField(max_length=20, validators=[phone_regex], blank=True, verbose_name='Telefone')
     requester_CPF = models.IntegerField(max_length=11, verbose_name='CPF', unique=True)
     requester_last_request_date = models.DateTimeField(default=timezone.now()- timedelta(days=1), blank=True)
